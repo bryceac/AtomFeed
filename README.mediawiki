@@ -8,6 +8,10 @@
 
 ==Notes==
 
+This library was never designed to parse Atom feeds, nor will it ever support it, but if you use a separate XML parser, it <strong>should</strong> be possible to utilize the models in the library to parse Atom feeds.
+
+This library was intended to be used as part of Swift web frameworks, as that is where Atom is utilized and why it can only generate Atom feeds.
+
 ===Installation===
 
 This feed can be installed in one of two ways:
@@ -40,3 +44,47 @@ swift package generate-xcodeproj
 <pre>
 
 And add the project to your Xcode project.
+
+===Creating a Feed===
+
+To create an Atom feed, you would do it like like:
+
+<pre>
+let AUTHOR = AtomFeedAuthor(name: "William Minerva")
+let ENTRIES = [
+    AtomFeedEntry(title: "Hello, World!", author: AUTHOR!, content: "&#60;p&#62;Hello, World!&#60;/p&#62;")
+].compactMap { $0 }
+
+let FEED = AtomFeed(title: "Atom Example", subtitle: "Example Atom Feed", author: AUTHOR!, homePage: URL(string: "http://example.com")!, url: URL(string: "http://example.com/feed"), entries: ENTRIES)
+</pre>
+
+The above creates an Atom feed with an entry that was updated with the current date and time.
+
+With the exception of '''ENTRIES''', which was unwrapped by using a compactMap closure, everything is an optional value, they must be unwrapped to access the data.
+
+After the feed has been created, it can be returned as an XML string, like this:
+
+<pre>
+FEED.display()
+</pre>
+
+or it can be saved, like this
+
+<pre>
+let DOCOMENTS_DIRECTORY = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+let ARCHIVE_URL = DOCOMENTS_DIRECTORY.appendingPathComponents("feed").appendingPathExtension("xml")
+
+FEED.save(to: ARCHIVE_URL)
+</pre>
+
+The above saves the feed's XML to the documents directory.
+
+===Contributing===
+
+Anyone is free to help make this library better, by helping it meet the Atom spec better than it, but I might take some time to accept or reject changes.
+
+If that is unreasonable for you, it might be best to manage your own fork.
+
+==Support==
+
+This library was tested with Swift 5 and is only guaranteed to work with Swift 5, but I will try to help out as much as I can.
