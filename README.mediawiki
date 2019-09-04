@@ -1,3 +1,42 @@
-# AtomFeed
+=AtomFeed=
 
-A description of this package.
+'''Author:''' Bryce campbell
+
+'''Version:''' 0.1
+
+'''Description:''' Library that allows one to easily create an Atom feed in Swift.
+
+==Notes==
+
+===Installation===
+
+This feed can be installed in one of two ways:
+
+<ul>
+<li><abbr title="Swift Package Manager">SPM</abbr></li>
+<li>Manually</li>
+</ul>
+
+====SPM====
+
+To load it through SPM, add the following under the '''dependencies''' section of '''Package.swift''':
+
+<pre>
+.package(url: "https://github.com/bryceac/AtomFeed.git", from: "0.1")
+</pre>
+
+And add the library to the target dependencies list of the same file like this:
+
+<pre>
+dependencies: ["AtomFeed"]
+</pre>
+
+====Manual====
+
+To load the library manually, generate the Xcode project after downloading by using the following command inside the folder:
+
+<pre>
+swift package generate-xcodeproj
+<pre>
+
+And add the project to your Xcode project.
