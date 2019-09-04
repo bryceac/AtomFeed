@@ -66,14 +66,21 @@ public class AtomFeed: Equatable {
 
     // the following function is used to produce XML output
     private func xml() -> Data {
+
+        // set up date formatter, for proper date formatting
         let RFC3339_DF = ISO8601DateFormatter()
+
+        // create the root element
         let ROOT_ELEMENT = XMLElement(name: "feed")
         ROOT_ELEMENT.setAttributesWith(["xmlns": "http://www.w3.org/2005/Atom"])
         
+        // create an XML document
         let XML = XMLDocument(rootElement: ROOT_ELEMENT)
 
+        // create elements and add them to document
         let ID = XMLElement(name: "id")
 
+        // check if ID has http:// or https:// prefix and set ID accordingly
         if self.ID.hasPrefix("https://") || self.ID.hasPrefix("http://") {
             ID.stringValue = self.ID
         } else {
@@ -81,6 +88,7 @@ public class AtomFeed: Equatable {
         }
         ROOT_ELEMENT.addChild(ID)
 
+        // continue adding required or spec recommended elements
         let TITLE = XMLElement(name: "title", stringValue: title)
         ROOT_ELEMENT.addChild(TITLE)
         
@@ -97,6 +105,7 @@ public class AtomFeed: Equatable {
         let UPDATED = XMLElement(name: "updated", stringValue: RFC3339_DF.string(from: updated))
         ROOT_ELEMENT.addChild(UPDATED)
 
+        // add some optional elements, if they are present
         if let icon = icon {
             let ICON = XMLElement(name: "icon", stringValue: icon.absoluteString)
             ROOT_ELEMENT.addChild(ICON)
@@ -107,14 +116,16 @@ public class AtomFeed: Equatable {
             ROOT_ELEMENT.addChild(LOGO)
         }
 
-        for entry in entries.reversed() {
+        // add entries to feed
+        for entry in entries {
             ROOT_ELEMENT.addChild(entry.xml())
         }
 
+        // return XMl data
         return XML.xmlData(options: [.nodePrettyPrint])
     }
 
-    /**Display feed as XML
+    /**retrieve feed XML as string
     */
     public func display() -> String? {
         guard let xml = String(data: xml(), encoding: .utf8) else { return nil }
