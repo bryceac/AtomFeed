@@ -22,7 +22,7 @@ public struct AtomFeedAuthor {
     - Note: name parameter **must not** be nil, otherwise initialization fails and returns nil.
     */
     public init?(name: String, email: String? = nil, url: URL? = nil) {
-        guard name.isEmpty else { return nil }
+        guard !name.isEmpty else { return nil }
 
         self.name = name
         self.email = email
