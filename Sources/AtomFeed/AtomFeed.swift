@@ -116,7 +116,7 @@ public class AtomFeed: Equatable {
 
     /**Display feed as XML
     */
-    public func output() -> String? {
+    public func display() -> String? {
         guard let xml = String(data: xml(), encoding: .utf8) else { return nil }
 
         return xml
