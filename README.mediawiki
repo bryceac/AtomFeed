@@ -6,6 +6,8 @@
 
 '''Description:''' Library that allows one to easily create an Atom feed in Swift.
 
+'''License:''' See LICENSE
+
 ==Notes==
 
 This library was never designed to parse Atom feeds, nor will it ever support it, but if you use a separate XML parser, it <strong>should</strong> be possible to utilize the models in the library to parse Atom feeds.
