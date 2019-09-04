@@ -78,6 +78,7 @@ public class AtomFeedEntry: Equatable {
         ENTRY.addChild(author.xml())
         ENTRY.addChild(UPDATED)
 
+        // add content
         if let content = content {
             let CONTENT = XMLElement(name: "content", stringValue: content)
             CONTENT.setAttributesWith(["type": "html"])
