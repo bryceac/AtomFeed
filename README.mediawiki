@@ -2,7 +2,7 @@
 
 '''Author:''' Bryce campbell
 
-'''Version:''' 0.1
+'''Version:''' 0.1.1
 
 '''Description:''' Library that allows one to easily create an Atom feed in Swift.
 
@@ -13,6 +13,15 @@
 This library was never designed to parse Atom feeds, nor will it ever support it, but if you use a separate XML parser, it <strong>should</strong> be possible to utilize the models in the library to parse Atom feeds.
 
 This library was intended to be used as part of Swift web frameworks, as that is where Atom is utilized and why it can only generate Atom feeds.
+
+===Version History===
+
+<dl>
+<dt style="font-weight: bold">0.1</dt>
+<dd>Initial release.</dd>
+<dt style="font-weight: bold">0.1.1</dt>
+<dd>Add support for tags/categories.</dd>
+</dl>
 
 ===Installation===
 
