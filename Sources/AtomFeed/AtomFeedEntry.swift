@@ -23,6 +23,9 @@ public class AtomFeedEntry: Equatable {
     /// entry summary
     public var summary: String?
 
+    /// tags for post, otherwise called categories.
+    public var categories: [String]
+
     /**default initializer.
     - Parameters:
         - id: entry identifier (defaults to UUID string)
@@ -35,7 +38,7 @@ public class AtomFeedEntry: Equatable {
     - Returns: AtomFeedEntry?
     - Note: either content or both url and summary **must not** be nil, otherwise initialization will fail.
     */
-    public init?(id: String = UUID().uuidString, title: String, author: AtomFeedAuthor, updated: Date = Date(), url: URL? = nil, content: String? = nil, summary: String? = nil) {
+    public init?(id: String = UUID().uuidString, title: String, author: AtomFeedAuthor, updated: Date = Date(), url: URL? = nil, content: String? = nil, summary: String? = nil, categories: [String] = [String]()) {
         guard content != nil || url != nil && summary != nil else { return nil }
 
         ID = id
@@ -45,6 +48,7 @@ public class AtomFeedEntry: Equatable {
         self.url = url
         self.content = content
         self.summary = summary
+        self.categories = categories
     }
 
     // implement function that allows comparisons to be made
@@ -89,6 +93,13 @@ public class AtomFeedEntry: Equatable {
             ALTERNATE.setAttributesWith(["rel": "alternate", "href": url.absoluteString])
             ENTRY.addChild(SUMMARY)
             ENTRY.addChild(ALTERNATE)
+        }
+
+        // add categories to feed
+        for category in categories {
+            let CATAGORY = XMLElement("category")
+            CATAGORY.setAttributesWith(["term": category])
+            ENTRY.addChild(CATAGORY)
         }
         
         return ENTRY
